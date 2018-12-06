@@ -1,0 +1,61 @@
+Frame Time Period TrialNo Stimulus
+1 0 PRESTIM
+91 1527 TRIAL 1 stim=FLOW nDots=1 dir=45 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+181 3077 POSTSTIM
+211 3629 PRESTIM
+301 5665 TRIAL 2 stim=FLOW nDots=3 dir=90 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+391 7447 POSTSTIM
+421 8036 PRESTIM
+511 9770 TRIAL 3 stim=FLOW nDots=3 dir=315 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+601 11549 POSTSTIM
+631 12120 PRESTIM
+721 13622 TRIAL 4 stim=FLOW nDots=1 dir=270 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+811 15139 POSTSTIM
+841 15632 PRESTIM
+931 17212 TRIAL 5 stim=FLOW nDots=1 dir=0 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+1021 18798 POSTSTIM
+1051 19307 PRESTIM
+1141 20865 TRIAL 6 stim=FLOW nDots=1 dir=315 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+1231 22429 POSTSTIM
+1261 22952 PRESTIM
+1351 24496 TRIAL 7 stim=FLOW nDots=3 dir=90 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+1441 26018 POSTSTIM
+1471 26529 PRESTIM
+1561 28106 TRIAL 8 stim=GRAT dir=270 tfreq=3.5 width=12.50 fgLvl=64 bgLvl=192 interLvl=127 phase=0.00
+1651 29711 POSTSTIM
+1681 30244 PRESTIM
+1771 31844 TRIAL 9 stim=GRAT dir=135 tfreq=3.5 width=0.70 fgLvl=64 bgLvl=192 interLvl=127 phase=0.00
+1861 33427 POSTSTIM
+1891 33961 PRESTIM
+1981 35486 TRIAL 10 stim=FLOW nDots=3 dir=225 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+2071 37029 POSTSTIM
+2101 37557 PRESTIM
+2191 39412 TRIAL 11 stim=FLOW nDots=3 dir=135 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+2281 41282 POSTSTIM
+2311 41888 PRESTIM
+2401 43435 TRIAL 12 stim=FLOW nDots=3 dir=135 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+2491 44987 POSTSTIM
+2521 45497 PRESTIM
+2611 47061 TRIAL 13 stim=FLOW nDots=1 dir=0 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+2701 48643 POSTSTIM
+2731 49164 PRESTIM
+2821 50739 TRIAL 14 stim=GRAT dir=270 tfreq=3.5 width=0.70 fgLvl=64 bgLvl=192 interLvl=127 phase=0.00
+2911 52337 POSTSTIM
+2941 52894 PRESTIM
+3031 54920 TRIAL 15 stim=FLOW nDots=3 dir=270 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+3121 56773 POSTSTIM
+3151 57384 PRESTIM
+3241 58934 TRIAL 16 stim=FLOW nDots=3 dir=315 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+3331 60483 POSTSTIM
+3361 60997 PRESTIM
+3451 62516 TRIAL 17 stim=FLOW nDots=1 dir=45 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+3541 64051 POSTSTIM
+3571 64550 PRESTIM
+3661 66131 TRIAL 18 stim=FLOW nDots=1 dir=225 tfreq=3.5 diam=1.50 spac=3.00 dotLvl=255 bgLvl=127 interLvl=127
+3751 67700 POSTSTIM
+3781 68237 PRESTIM
+3871 69754 TRIAL 19 stim=FLOW nDots=1 dir=90 tfreq=3.5 diam=0.70 spac=3.00 dotLvl=0 bgLvl=127 interLvl=127
+3961 71283 POSTSTIM
+3991 71775 PRESTIM
+4081 73375 TRIAL 20 stim=GRAT dir=45 tfreq=3.5 width=12.50 fgLvl=64 bgLvl=192 interLvl=127 phase=0.00
+4171 74983 POSTSTIM

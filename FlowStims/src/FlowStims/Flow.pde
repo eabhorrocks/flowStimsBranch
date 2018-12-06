@@ -3,33 +3,33 @@ class Flow implements Stim {
   private IntList dirs;
   int dirCounter;
   
-  ArrayList<Boid> boids;
-  DoublyLinkedList[] binGrid;
+  ArrayList<Boid> boids; // Vector2/3 of dot positions
+  DoublyLinkedList[] binGrid; // each bin has a doubly linked list
   int[] myBorders, nbrArray;
   int binSize, binrows, bincols, xLen, yLen, tileSize;
   int pattern, D, boidColor, boidAlpha, bgColor, grayColor;
   float xHalfLen, yHalfLen, baseSep, posStd, dirStd, radius, origDdeg;
   int sepFreq, fadeRate;
-  float sepRadius, sepFrstTerm, sepScndTerm, sepThrdTerm;
+  float sepRadius, sepFrstTerm, sepScndTerm, sepThrdTerm; // Separation terms, calculated from sepRadius
   FlowField flow;
 
   
-  float meanTheta, maxSpeed, tempFreq, maxForce, sepWeight;
-  int meanThetaDeg;
-  PVector v0;
+  float meanTheta, maxSpeed, tempFreq, maxForce, sepWeight; // using to control forces. max speed is input velocity
+  int meanThetaDeg; // direction
+  PVector v0; // base velocity?
   
   boolean wiggle, move, separate, follow;
   PShape boid;
   
   int mySeed;
-  int nInfo = -1;
+  int nInfo = -1; // default, info about experiment??
 
 
   Flow(int myseed, int tilesize, float dirstd, float basesep, int sepPx, float posstd, 
         int ndots, int diam, float diamdeg, int boidcolor, int bgcolor, int gray, float maxsp, float tempfreq,
         boolean wiggle_, float maxforce, float sepweight, int faderate) {
 
-    dirs = new IntList();
+    dirs = new IntList(); // set directions
     for (int dr = 0; dr < nDirs; dr++) {
       dirs.append(round(dr*(360./nDirs)) + dirDegShift);
     }
@@ -39,7 +39,7 @@ class Flow implements Stim {
     tileSize = tilesize;
     dirStd = dirstd;
     
-    nbrArray = new int[9];//single array shared by all boids
+    nbrArray = new int[9];//single array shared by all boids; 9
 
     pattern = ndots;
     
@@ -66,7 +66,7 @@ class Flow implements Stim {
     fadeRate = faderate;
     posStd = posstd;
     
-    if (usePShape) createBoidShape();
+    if (usePShape) createBoidShape(); // 1 dot, 3 dot shape etc.
 
     maxSpeed = maxsp;
     tempFreq = tempfreq;
@@ -105,18 +105,18 @@ class Flow implements Stim {
     dirCounter = (dirCounter + 1) % nDirs;
 
     ///direction-related variables
-    float meantheta = dirdeg*(PI/180.);
-    meanThetaDeg = dirdeg;
+    float meantheta = dirdeg*(PI/180.); //convert to rads
+    meanThetaDeg = dirdeg; // set as mean direction
     meanTheta = -meantheta;
     
     //eliminate flickering of patterns > 1 along borders when two elts don't fit into the same bin
     if (meantheta == 0 || meantheta == PI)
-      if (binrows*binSize - myheight < pattern*D) binrows++;
+      if (binrows*binSize - myheight < pattern*D) binrows++; //increase binrows
 
     if (meantheta == HALF_PI || meantheta == 3*HALF_PI)
-      if (bincols*binSize - mywidth < pattern*D) bincols++;
+      if (bincols*binSize - mywidth < pattern*D) bincols++; // increase bincols
 
-
+// borders of display (normalised coordinates?)
     int borderx = frameWidth + binSize*(bincols);
     int bordery = frameWidth + binSize*(binrows);
 
@@ -128,8 +128,9 @@ class Flow implements Stim {
     yLen = myBorders[3] - myBorders[2];
     yHalfLen = yLen/2.;
     
-    v0 = PVector.fromAngle(meanTheta);
-    v0.mult(maxSpeed);
+    // input velocity
+    v0 = PVector.fromAngle(meanTheta); // convert to x,y vector
+    v0.mult(maxSpeed); // 2d vector of magnitude speed
     
     //coeffs for ellipse equation (separation perimeter)
     float a = sq(sepRadius);
@@ -141,7 +142,7 @@ class Flow implements Stim {
       sepScndTerm = 2*costheta*sintheta*(1./a - 1./b);
       sepThrdTerm = sq(sintheta)/a + sq(costheta)/b;
     } else {
-      sepFrstTerm = 1/a;
+      sepFrstTerm = 1/a; // use the
       sepScndTerm = 0;
       sepThrdTerm = sepFrstTerm;
     }    
@@ -162,7 +163,7 @@ class Flow implements Stim {
     int c = 0;
     for (int i = myBorders[2]; i < bordery; i += binSize) {
       for (int j = myBorders[0]; j < borderx; j += binSize) {
-        boids.add(new Boid(j+posStd*binSize*randomGaussian(),i+posStd*binSize*randomGaussian(),c,c % sepFreq));
+        boids.add(new Boid(j+posStd*binSize*randomGaussian(),i+posStd*binSize*randomGaussian(),c,c % sepFreq)); // list of boids?
         c++;
       }
     }
@@ -188,7 +189,7 @@ class Flow implements Stim {
       setWiggle(wiggle);
     } else boidAlpha = max(0,boidAlpha - fadeRate);
 
-    float alphafrac = boidAlpha/255.;
+    float alphafrac = boidAlpha/255.; // adjusting grey screen depending on boid coverage?
     background(bgColor*alphafrac + grayColor*(1. - alphafrac));
 
     for (Boid b : boids) {         
@@ -279,15 +280,15 @@ class Flow implements Stim {
       while (y > myBorders[3]-pattern*radius) y -= yLen;
       while (y < myBorders[2]-pattern*radius) y += yLen;  
       
-      node = new Node();
+      node = new Node(); //doubly linked list of nodes
       node.item = this;
       node.id = id;
       
-      sepCounter = sepcount;
+      sepCounter = sepcount; // only separate every few frames?
       
-      binGrid[getBinIndex()].add(node);
+      binGrid[getBinIndex()].add(node); // get bin index of dot, 
       
-      acceleration = new PVector(0, 0);
+      acceleration = new PVector(0, 0); // vector2
       theta = meanTheta;
       velocity = v0.copy();
       velocity.setMag(maxSpeed);
@@ -300,14 +301,14 @@ class Flow implements Stim {
    
     
     int getBinIndex() {
-      bin_x = (int) (position.x-myBorders[0])/binSize;
-      bin_y = (int) (position.y-myBorders[2])/binSize;
+      bin_x = (int) (position.x-myBorders[0])/binSize; //bin in x-coords
+      bin_y = (int) (position.y-myBorders[2])/binSize; // bin in y coords
       
-      return bin_y*bincols + bin_x;
+      return bin_y*bincols + bin_x; // single value coordinate for bin
     }
     void updateBinNeighbors() {
       
-      int rows_above = bin_y*bincols;
+      int rows_above = bin_y*bincols;  // 
       nbrArray[0] = rows_above + bin_x;//CENTER
       //LEFT
       if (bin_x == 0) nbrArray[1] = rows_above + bincols - 1;
@@ -360,9 +361,9 @@ class Flow implements Stim {
     
     void run() {
       
-      int bin_idx = getBinIndex();
+      int bin_idx = getBinIndex(); // get index of dot??
   
-      updateBinNeighbors();
+      updateBinNeighbors(); 
       
       if (move) {
         flock();
@@ -393,7 +394,7 @@ class Flow implements Stim {
       desired.sub(velocity);    
       desired.limit(maxForce);    
       
-      return desired;
+      return desired; // desired is desired  is the 
   
     }
     
@@ -438,13 +439,13 @@ class Flow implements Stim {
     //update boid position
     void update() {
   
-      velocity.add(acceleration);
-      velocity.limit(maxSpeed);
+      velocity.add(acceleration); //  add the required acceleration to the velocity vector
+      velocity.limit(maxSpeed); // make sure that the velocity doesnt go over a limit
       //if (node.id == n1) print(velocity.y," ");
-      position.add(velocity);
+      position.add(velocity);  // update position
       
       //reset acceleration after each cycle
-      acceleration.set(0,0);
+      acceleration.set(0,0); // set acceleration to 0
     }
     
     // wraparound borders
@@ -494,13 +495,13 @@ class Flow implements Stim {
     //check for nearby boids
     PVector separate() {
   
-      float dx, dy, d2;
-      PVector steer = new PVector(0,0);
-      PVector diff = new PVector(0,0);
+      float dx, dy, d2; 
+      PVector steer = new PVector(0,0); // Vector2 of steer
+      PVector diff = new PVector(0,0); // Vector2 of diff
   
-      Node other;
+      Node other; // ???
   
-      for (int nbr_idx : nbrArray) {
+      for (int nbr_idx : nbrArray) { // iterate through nbrArray
   
         if (nbr_idx == -1) continue;
           
