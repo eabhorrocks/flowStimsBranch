@@ -51,7 +51,7 @@ sepWeight 1.5 #Ratio between repulsion force between elts and the flow field for
 
 
 ###GRATINGS STIMULI###
-useGratings 1 #Whether to display square-wave gratings
+useGratings 0 #Whether to display square-wave gratings
 gratWidthDeg 12.5 .7 #Width of grating bars, in degrees of visual angle, i.e. 1/(2*spat.freq.)
 gratFgVal 192 #Grayscale value of one half of the bars ("foreground") [0-255], can choose multiple
 ->gratBgVal 64 #Grayscale value of the other half of the bars ("background")
